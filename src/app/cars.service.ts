@@ -8,12 +8,28 @@ import { iCarro } from './iCarros'
 })
 export class CarsService {
 
-  constructor(private httpCliente: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
 
   getAll() {
 
-    return this.httpCliente.get<iCarro[]>(`${API_PATH}Carros`).toPromise();
+    return this.httpClient.get<iCarro[]>(`${API_PATH}Carros`).toPromise();
 
+  }
+
+  obterPorId(id: number) {
+    return this.httpClient.get<iCarro>(`${API_PATH}Carros/${id}`).toPromise();
+  }
+
+  adicionar(carro: iCarro) {
+    return this.httpClient.post<iCarro>(`${API_PATH}Carros`, carro).toPromise();
+  }
+
+  atualizar(carro: iCarro) {
+    return this.httpClient.put<iCarro>(`${API_PATH}Carros/${carro.id}`, carro).toPromise();
+  }
+
+  delete(carroId: number) {
+    return this.httpClient.delete<void>(`${API_PATH}Carros/${carroId}`).toPromise();
   }
 }
